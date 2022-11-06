@@ -29,5 +29,5 @@ app.get('/search', (req, res) => {
 })
 
 app.listen(port, () => {
-  console.log(`localhost:${port}`)
+  console.log(`Listening on localhost:${port}`)
 })
