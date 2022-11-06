@@ -59,6 +59,11 @@ header {
   font-size: 0.8rem;
 }
 
+.restaurant-rating {
+  color: #666666;
+  font-size: 0.8rem;
+}
+
 .restaurant-show-title {
   position: relative;
   top: -100px;
