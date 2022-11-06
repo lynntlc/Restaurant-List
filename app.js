@@ -21,11 +21,18 @@ app.get('/restaurants/:restaurant_id', (req, res) => {
 })
 
 app.get('/search', (req, res) => {
-  const keyword = req.query.keyword
+  const keywords = req.query.keyword
+  const keyword = req.query.keyword.toLowerCase().trim()
   const restaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword.toLowerCase())
+    return restaurant.name.toLowerCase().includes(keyword) ||
+      restaurant.category.toLowerCase().includes(keyword)
   })
-  res.render('index', { restaurants: restaurants, keyword: keyword })
+
+  if (!restaurants.length) {
+    res.render('cannot_found', { restaurant: restaurantList, keywords })
+  } else {
+    res.render('index', { restaurants: restaurants, keyword: keyword })
+  }
 })
 
 app.listen(port, () => {
