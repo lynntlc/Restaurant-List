@@ -1,5 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
+const Restaurant = require('../restaurant')// 載入model
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
