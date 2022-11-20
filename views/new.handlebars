@@ -1,0 +1,72 @@
+<div class="container mb-5 new-bar">
+  <h2 class="text-center">新增餐廳</h2>
+</div>
+
+<div class="container">
+  <form action="/restaurants" method="POST">
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="name" placeholder="蟹堡王" name="name" required>
+      <label for="name">店名
+        <span class="text-danger">*
+        </span></label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="name_en" placeholder="Krusty Krab" name="name_en" required>
+      <label for="name_en">英文店名
+        <span class="text-danger">*
+        </span></label>
+    </div>
+    <div class="form-floating mb-3">
+      <select class="form-select" id="category" name="category" required>
+        <option selected>咖啡
+        <option>美式</option>
+        <option>中東料理</option>
+        <option>日本料理</option>
+        <option>義式餐廳</option>
+        <option>其他</option>
+      </select>
+      <label for="category">分類
+        <span class="text-danger">*
+        </span></label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="url" class="form-control" id="image" placeholder="https://" name="image" required>
+      <label for="image">圖片連結
+        <span class="text-danger">*
+        </span></label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" id="location" placeholder="高雄市仁武區仁林路19號" name="location" required>
+      <label for="location">地址
+        <span class="text-danger">*
+        </span></label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="tel" class="form-control" id="phone" placeholder="07-3456789" name="phone" required>
+      <label for="phone">電話
+        <span class="text-danger">*
+        </span></label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="url" class="form-control" id="google_map" placeholder="https://www.google.com.tw/" name="google_map"
+        required>
+      <label for="google_map">Google地圖連結
+        <span class="text-danger">*
+        </span></label>
+    </div>
+    <div class="form-floating mb-3">
+      <input type="number" class="form-control" id="rating" placeholder="4.2" name="rating" required>
+      <label for="rating">評分
+        <span class="text-danger">*
+        </span></label>
+    </div>
+    <div class="form-floating">
+      <textarea class="form-control mb-3" style="height: 100px" id="description" placeholder="請發表您的評論"
+        name="description" required></textarea>
+      <label for="description">評論</label>
+    </div>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary mb-3">新增餐廳</button>
+    </div>
+  </form>
+</div>
