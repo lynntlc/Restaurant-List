@@ -42,7 +42,7 @@
                   class="btn btn-outline-success btn-sm">Edit</button></a>
               <a href="./restaurants/{{ this._id }}"><button
                   class="btn btn-outline-secondary btn-sm">Detail</button></a>
-              <form action="/restaurants/{{this._id}}/delete" method="POST">
+              <form action="/restaurants/{{this._id}}?_method=DELETE" method="POST">
                 <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
               </form>
             </div>
