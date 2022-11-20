@@ -40,6 +40,22 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error))
 })
 
+// 搜尋餐廳
+app.get('/search', (req, res) => {
+  const keywords = req.query.keyword
+  const keyword = req.query.keyword.toLowerCase().trim()
+  const restaurants = restaurantList.results.filter(restaurant => {
+    return restaurant.name.toLowerCase().includes(keyword) ||
+      restaurant.category.toLowerCase().includes(keyword)
+  })
+
+  if (!restaurants.length) {
+    res.render('cannot_found', { restaurant: restaurantList, keywords })
+  } else {
+    res.render('index', { restaurants: restaurants, keyword: keyword })
+  }
+})
+
 // 新增餐廳頁面
 app.get('/restaurants/new', (req, res) => {
   return res.render('new')
@@ -59,24 +75,23 @@ app.get('/restaurants/:id', (req, res) => {
     .lean()
     .then((restaurant) => res.render('show', { restaurant }))
     .catch(error => console.log(error))
-  // const restaurant = Restaurant.find(restaurant => restaurant._id.toString() === req.params.restaurant_id)
-  // res.render('show', { restaurant: restaurant })
 })
 
-// 搜尋餐廳
-app.get('/search', (req, res) => {
-  const keywords = req.query.keyword
-  const keyword = req.query.keyword.toLowerCase().trim()
-  const restaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword) ||
-      restaurant.category.toLowerCase().includes(keyword)
-  })
+// 新增編輯頁面
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
 
-  if (!restaurants.length) {
-    res.render('cannot_found', { restaurant: restaurantList, keywords })
-  } else {
-    res.render('index', { restaurants: restaurants, keyword: keyword })
-  }
+// 編輯餐廳
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  Restaurant.findByIdAndUpdate(id, req.body)
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
 })
 
 app.listen(port, () => {

@@ -36,10 +36,10 @@
                 <i class="fa-solid fa-thumbs-up pr-2"></i> {{this.rating}}
               </div>
             </div>
-            <div class="card-foot">
-              <button>Edit</button>
-              <button>Detail</button>
-              <button>Delete</button>
+            <div class="card-body justify-content-md-end">
+              <a class="btn btn-outline-success btn-sm" href="./restaurants/{{ this._id }}/edit">Edit</a>
+              <a class="btn btn-outline-secondary btn-sm" href="./restaurants/{{ this._id }}">Detail</a>
+              <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
             </div>
           </div>
         </a>
