@@ -13,7 +13,7 @@ const app = express()
 mongoose.connect(process.env.MONGODB_URI)
 
 const port = 3000
-const restaurantList = require('./restaurant.json')
+
 
 // 取得資料庫連線狀態
 const db = mongoose.connection
@@ -52,9 +52,15 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
-app.get('/restaurants/:restaurant_id', (req, res) => {
-  const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-  res.render('show', { restaurant: restaurant })
+// 瀏覽詳細資訊
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('show', { restaurant }))
+    .catch(error => console.log(error))
+  // const restaurant = Restaurant.find(restaurant => restaurant._id.toString() === req.params.restaurant_id)
+  // res.render('show', { restaurant: restaurant })
 })
 
 // 搜尋餐廳
