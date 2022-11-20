@@ -44,16 +44,20 @@ app.get('/', (req, res) => {
 app.get('/search', (req, res) => {
   const keywords = req.query.keyword
   const keyword = req.query.keyword.toLowerCase().trim()
-  const restaurants = restaurantList.results.filter(restaurant => {
-    return restaurant.name.toLowerCase().includes(keyword) ||
-      restaurant.category.toLowerCase().includes(keyword)
-  })
-
-  if (!restaurants.length) {
-    res.render('cannot_found', { restaurant: restaurantList, keywords })
-  } else {
-    res.render('index', { restaurants: restaurants, keyword: keyword })
-  }
+  Restaurant.find()
+    .lean()
+    .then(restaurantsData => {
+      const filterRestaurantsData = restaurantsData.filter(
+        data => {
+          return data.name.toLowerCase().includes(keyword) ||
+            data.category.toLowerCase().includes(keyword)
+        })
+      if (!filterRestaurantsData.length) {
+        res.render('cannot_found', { restaurants: restaurantsData, keywords })
+      } else {
+        res.render('index', { restaurants: filterRestaurantsData, keyword: keyword })
+      }
+    })
 })
 
 // 新增餐廳頁面
