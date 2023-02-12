@@ -19,30 +19,26 @@ const SEED_USER = [{
   }]
 
 db.once('open', () => {
-  Promise.all(SEED_USER.map(user => {
+  Promise.all(
+    SEED_USER.map(user => {
     const { name, email, password, index } = user
-    bcrypt
-      .genSalt(10)
-      .then(salt => bcrypt.hash(password, salt))
-      .then(hash => User.create({
-        name,
-        email,
-        password: hash
-      }))
+    return User.create({
+      name,
+      email,
+      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10))
+    })
       .then(user => {
         const userId = user._id
         const restaurants = index.map(index => {
-          const restaurant = ({ ...restaurantList[index], userId })
-          return restaurant
+          return { ...restaurantList[index], userId }
         })
-        new Promise(() => {
-          Restaurant.create(restaurants)
-          console.log('Create Seed Data') 
-        })
-          .then(() => {
-            console.log('done.')
-            process.exit()
-          })
+        return Restaurant.create(restaurants)
       })
-  }))
+      .catch(err => console.log(err))
+  })
+  )
+  .then(() => {
+    console.log('done.')
+    process.exit()
+  })
 })

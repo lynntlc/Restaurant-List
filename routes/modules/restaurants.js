@@ -28,18 +28,16 @@ router.get('/:id/edit', (req, res) => {
   const _id = req.params.id
   return Restaurant.findOne({ _id, userId })
     .lean()
-    .then((restaurant) => res.render('edit', { restaurant }))
+    .then(restaurant => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
 
-// 編輯餐廳
 router.put('/:id', (req, res) => {
   const userId = req.user._id
   const _id = req.params.id
-  const updatedRestaurant = req.body
-  return Restaurant.findOneAndUpdate({ userId }, updatedRestaurant, { new: true, useFindAndModify: false })
+  Restaurant.findOneAndUpdate({ _id, userId }, req.body)
     .then(() => res.redirect(`/restaurants/${_id}`))
-    .catch(error => console.log(error))
+    .catch((error) => console.log(error));
 })
 
 // 刪除餐廳
