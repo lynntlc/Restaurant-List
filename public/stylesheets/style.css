@@ -78,3 +78,7 @@ header {
     font-size: 2rem;
   }
 }
+
+.user-card {
+  margin-top: -60px;
+ }
